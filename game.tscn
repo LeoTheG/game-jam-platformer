@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfmfcca0b87gg"]
+
+[ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
+[ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_frwyn")]
+
+[node name="TileMap" parent="." instance=ExtResource("1_ecfde")]

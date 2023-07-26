@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://3fgc65u1qa4"]
+
+[ext_resource type="Script" path="res://characters/player.gd" id="1_iusnv"]
+[ext_resource type="Texture2D" uid="uid://bwi3b6j0ii83t" path="res://sprites/player.png" id="2_0x27y"]
+[ext_resource type="PackedScene" uid="uid://3tfgti4ceioh" path="res://projectiles/bullet.tscn" id="3_ppxme"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ghin"]
+atlas = ExtResource("2_0x27y")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ouy7"]
+atlas = ExtResource("2_0x27y")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxkw2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ghin")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ouy7")
+}],
+"loop": true,
+"name": &"fire_weapon",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jopvj"]
+size = Vector2(34.5, 123.5)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(5, -78)
+script = ExtResource("1_iusnv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oxkw2")
+animation = &"fire_weapon"
+
+[node name="CollisionTiles" type="CollisionShape2D" parent="."]
+position = Vector2(-4.25, 2.75)
+shape = SubResource("RectangleShape2D_jopvj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ExampleBullet" parent="." instance=ExtResource("3_ppxme")]
+visible = false
+position = Vector2(-65, -1)
