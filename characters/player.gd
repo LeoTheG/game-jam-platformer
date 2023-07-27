@@ -3,6 +3,8 @@ extends CharacterBody2D
 var Bullet = load("res://projectiles/bullet.tscn")
 
 @onready var animatedSprite2D = $AnimatedSprite2D
+@onready var effectsAnimatedSprite2D = $EffectsAnimatedSprite2D
+@onready var effectsAnimationPlayer = $EffectsAnimationPlayer
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -650.0
@@ -17,15 +19,27 @@ var actionRestTimer
 const BULLET_POSITION_RIGHT = Vector2(63, -1)
 const BULLET_POSITION_LEFT = Vector2(-65, -1)
 
+var numTimesJumpedInAir = 0
+const MAX_NUM_TIMES_JUMPED_IN_AIR = 1
+
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	else:
+		numTimesJumpedInAir = 0
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if (
+		Input.is_action_just_pressed("jump")
+		and (is_on_floor() or numTimesJumpedInAir < MAX_NUM_TIMES_JUMPED_IN_AIR)
+	):
 		velocity.y = JUMP_VELOCITY
+		if not is_on_floor():
+			numTimesJumpedInAir += 1
+			effectsAnimationPlayer.seek(0)
+			effectsAnimationPlayer.play("activate")
 
 	var direction = Input.get_axis("left", "right")
 
@@ -72,18 +86,22 @@ func spawnBullet():
 	var mousePosition = get_global_mouse_position()
 	var playerPosition = get_global_position()
 	var angle = playerPosition.angle_to_point(mousePosition)
-	print("angle is ", angle)
+	# print("angle is ", angle)
 
 	# limit angle based on player's facing direction
 	# prevent shooting behind player
 	if facingDirection == "right":
 		if not (angle > -PI / 2 and angle < PI / 2):
-			return
-		# angle = clamp(angle, -PI / 2, PI / 2)
+			if angle > PI / 2:
+				angle = PI / 2
+			else:
+				angle = -PI / 2
 	elif facingDirection == "left":
 		if not ((angle > PI / 2 and angle < PI) or (angle < -PI / 2 and angle > -PI)):
-			return
-		# angle = clamp(angle, PI / 2, PI)
+			if angle > 0:
+				angle = PI / 2
+			else:
+				angle = -PI / 2
 
 	bullet.set_rotation(angle)
 
