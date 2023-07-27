@@ -1,13 +1,20 @@
 extends Node
 
 @onready var Root = get_node("/root/Game")
+@onready var Player = Root.get_node("Player")
+@onready var GameOverScreen = Root.get_node("GameOverScreen")
+@onready var ReplayButton = GameOverScreen.get_node("ColorRect/VBoxContainer/Button")
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass  # Replace with function body.
+	GameOverScreen.hide()
+	Player.connect("player_died", _on_Player_player_died)
+	ReplayButton.connect("pressed", _on_ReplayButton_pressed)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_Player_player_died():
+	GameOverScreen.show()
+
+
+func _on_ReplayButton_pressed():
+	GameOverScreen.hide()

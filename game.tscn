@@ -1,10 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfmfcca0b87gg"]
+[gd_scene load_steps=4 format=3 uid="uid://bfmfcca0b87gg"]
 
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
+[ext_resource type="PackedScene" uid="uid://co0x8fksr17aj" path="res://static_objects/spike.tscn" id="3_h8trb"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_frwyn")]
 
 [node name="TileMap" parent="." instance=ExtResource("1_ecfde")]
+
+[node name="Spike" parent="TileMap" instance=ExtResource("3_h8trb")]
+
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOverScreen"]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -41.0
+offset_right = 113.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOverScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "YOU DIED"
+
+[node name="Button" type="Button" parent="GameOverScreen/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "replay"

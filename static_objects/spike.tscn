@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://co0x8fksr17aj"]
+
+[ext_resource type="Script" path="res://dangerousObject.gd" id="1_kgf5o"]
+[ext_resource type="Texture2D" uid="uid://csqk0o0lqanh1" path="res://sprites/objects.png" id="2_to1li"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5jk0"]
+atlas = ExtResource("2_to1li")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ml1ku"]
+size = Vector2(72, 11)
+
+[node name="Spike" type="Node2D"]
+position = Vector2(-72, 0)
+script = ExtResource("1_kgf5o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(288, -64)
+texture = SubResource("AtlasTexture_y5jk0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/StaticBody2D"]
+position = Vector2(0, 56)
+polygon = PackedVector2Array(-48, 8, -48, 8, -40, -8, -33, 0, -23, -20, -15, 3, -7, -17, -7, -38, -4, -38, 3, 3, 8, -14, 11, -15, 15, 5, 25, -16, 35, 8)
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+position = Vector2(-5, 58)
+shape = SubResource("RectangleShape2D_ml1ku")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D"]
+position = Vector2(0, 56)
+polygon = PackedVector2Array(-48, 8, -48, 8, -40, -8, -33, 0, -23, -20, -15, 3, -7, -17, -7, -38, -4, -38, 3, 3, 8, -14, 11, -15, 15, 5, 25, -16, 35, 8)

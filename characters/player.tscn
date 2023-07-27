@@ -110,3 +110,15 @@ sprite_frames = SubResource("SpriteFrames_g1kwj")
 libraries = {
 "": SubResource("AnimationLibrary_ao8qa")
 }
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HealthBarColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -14.0
+offset_top = -73.0
+offset_right = 26.0
+offset_bottom = -63.0
+color = Color(1, 0, 0, 1)
