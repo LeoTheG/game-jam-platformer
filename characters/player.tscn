@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://3fgc65u1qa4"]
+[gd_scene load_steps=13 format=3 uid="uid://3fgc65u1qa4"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_iusnv"]
 [ext_resource type="Texture2D" uid="uid://bwi3b6j0ii83t" path="res://sprites/player.png" id="2_0x27y"]
 [ext_resource type="PackedScene" uid="uid://3tfgti4ceioh" path="res://projectiles/bullet.tscn" id="3_ppxme"]
+[ext_resource type="Texture2D" uid="uid://d3vvjljj16qt6" path="res://sprites/effects.png" id="4_10le8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ghin"]
 atlas = ExtResource("2_0x27y")
@@ -34,6 +35,54 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jopvj"]
 size = Vector2(34.5, 123.5)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4p0p"]
+atlas = ExtResource("4_10le8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1kwj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4p0p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_jbwxm"]
+resource_name = "activate"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EffectsAnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(12, 88), Vector2(12, 108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EffectsAnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ao8qa"]
+_data = {
+"activate": SubResource("Animation_jbwxm")
+}
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(5, -78)
 script = ExtResource("1_iusnv")
@@ -51,3 +100,25 @@ shape = SubResource("RectangleShape2D_jopvj")
 [node name="ExampleBullet" parent="." instance=ExtResource("3_ppxme")]
 visible = false
 position = Vector2(-65, -1)
+
+[node name="EffectsAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(12, 88)
+sprite_frames = SubResource("SpriteFrames_g1kwj")
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ao8qa")
+}
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HealthBarColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -14.0
+offset_top = -73.0
+offset_right = 26.0
+offset_bottom = -63.0
+color = Color(1, 0, 0, 1)
