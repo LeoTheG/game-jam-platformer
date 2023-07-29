@@ -99,6 +99,7 @@ func handleFireWeapon():
 
 func spawnBullet():
 	var bullet = Bullet.instantiate()
+	bullet.isFiredByPlayer = true 
 
 	# angle bullet based on mouse position relative to player position
 	var mousePosition = get_global_mouse_position()

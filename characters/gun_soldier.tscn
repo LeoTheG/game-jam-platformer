@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmw0lx567chv2"]
+
+[ext_resource type="Script" path="res://GunSoldier.gd" id="1_6jly4"]
+[ext_resource type="Texture2D" uid="uid://jexyx7jxqdn1" path="res://sprites/GunSoldier.png" id="2_txrhx"]
+[ext_resource type="Texture2D" uid="uid://bp5tiiadeypt6" path="res://sprites/GunSoldiershooting-Sheet-export.png" id="3_fei48"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqfv1"]
+atlas = ExtResource("3_fei48")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m0elk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_txrhx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqfv1")
+}],
+"loop": true,
+"name": &"Shooting",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6x1g"]
+size = Vector2(49, 95)
+
+[node name="GunSoldier" type="CharacterBody2D"]
+script = ExtResource("1_6jly4")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+sprite_frames = SubResource("SpriteFrames_m0elk")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, -47)
+shape = SubResource("RectangleShape2D_v6x1g")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
