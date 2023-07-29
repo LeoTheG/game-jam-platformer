@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://3tfgti4ceioh"]
+[gd_scene load_steps=5 format=3 uid="uid://3tfgti4ceioh"]
 
 [ext_resource type="Script" path="res://projectiles/bullet.gd" id="1_4jwg3"]
 [ext_resource type="Texture2D" uid="uid://cx6igemyyxyt8" path="res://sprites/projectiles.png" id="1_aw8tr"]
@@ -7,11 +7,20 @@
 atlas = ExtResource("1_aw8tr")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrv0k"]
+radius = 6.0
+
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_4jwg3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, 3)
 texture = SubResource("AtlasTexture_4pj4a")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+position = Vector2(-4, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("CircleShape2D_rrv0k")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

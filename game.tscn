@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfmfcca0b87gg"]
+[gd_scene load_steps=5 format=3 uid="uid://bfmfcca0b87gg"]
 
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
 [ext_resource type="PackedScene" uid="uid://co0x8fksr17aj" path="res://static_objects/spike.tscn" id="3_h8trb"]
+[ext_resource type="PackedScene" uid="uid://cmw0lx567chv2" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
 
 [node name="Game" type="Node2D"]
 
@@ -42,3 +43,6 @@ text = "YOU DIED"
 [node name="Button" type="Button" parent="GameOverScreen/ColorRect/VBoxContainer"]
 layout_mode = 2
 text = "replay"
+
+[node name="GunSoldier" parent="." instance=ExtResource("4_k6bxb")]
+position = Vector2(-68, -4)
