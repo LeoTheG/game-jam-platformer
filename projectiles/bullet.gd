@@ -9,13 +9,13 @@ class_name Bullet
 
 var isFiredByPlayer
 
+
 func _ready():
 	visibleOnScreenNotifier2D.connect("screen_exited", on_screen_exited)
 	area2D.connect("body_entered", _on_body_entered)
 
 
 func _on_body_entered(body):
-	print(body.name)
 	if body.name == "Player":
 		if isFiredByPlayer:
 			return
@@ -23,6 +23,7 @@ func _on_body_entered(body):
 		queue_free()
 	elif body.name == "GunSoldier":
 		body.queue_free()
+
 
 # note: when this node is spawned, need to set rotation
 func _process(delta):

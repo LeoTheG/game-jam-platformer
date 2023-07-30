@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
 [ext_resource type="PackedScene" uid="uid://co0x8fksr17aj" path="res://static_objects/spike.tscn" id="3_h8trb"]
-[ext_resource type="PackedScene" uid="uid://cmw0lx567chv2" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
+[ext_resource type="PackedScene" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
 
 [node name="Game" type="Node2D"]
 

@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GDScript Godot Yoon",
+            "type": "godot",
+            "request": "launch",
+            "project": "Q:/Godot games/game-jam-platformer",
+            // "port": 6006,
+            "address": "127.0.0.1",
+            "launch_game_instance": true,
+            "launch_scene": false,
+            "debugServer": 6006,
+        },
+        {
+            "name": "GDScript Godot Leo",
+            "type": "godot",
+            "request": "launch",
+            "project": "Q:/Godot games/game-jam-platformer",
+            // "port": 6006,
+            "address": "127.0.0.1",
+            "launch_game_instance": true,
+            "launch_scene": false,
+            "debugServer": 6006,
+        }
+    ]
+}

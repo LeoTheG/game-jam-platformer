@@ -6,13 +6,13 @@ extends Node2D
 var isCollidingWithPlayer = false
 var damageAmount = 10
 
+
 func _ready():
 	area2D.connect("body_entered", _on_body_entered)
 	area2D.connect("body_exited", _on_body_exited)
 
 
 func _on_body_entered(body):
-	print(body.name)
 	if body.name == "Player":
 		isCollidingWithPlayer = true
 

@@ -12,16 +12,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var isCloseToPlayer = false
 var isFacingRight = true
 
+
 func _ready():
 	$Timer.connect("timeout", _on_timer_timeout)
-	
+
+
 func _physics_process(delta):
 	var pos = get_global_position()
 	var playerPos = Globals.Player.get_global_position()
 	var _distance = pos.distance_to(playerPos)
 	self.distance = _distance
 	var distanceDiff = playerPos - pos
-	print(distanceDiff)
 	if distanceDiff.x < 0:
 		$AnimatedSprite.set_flip_h(true)
 		isFacingRight = false
@@ -43,44 +44,40 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	move_and_slide()
 
+
 func handleFireWeapon():
 	spawnBullet()
 	$AnimatedSprite.play("Shooting")
 
+
 var distance = 0
+
 
 func spawnBullet():
 	var bullet = Bullet.instantiate()
 	var enemyPosition = get_global_position()
 	# angle bullet based on mouse position relative to player position
-	var randX = randf_range(-300 , 300)
-	var randY = randf_range(-100 , 100)
-	print(randX)
-	print(randY)
+	var randX = randf_range(-300, 300)
+	var randY = randf_range(-100, 100)
 	var playerPosition = Globals.Player.get_global_position()
-	var randPlayerPos = playerPosition + Vector2(randX , randY)
+	var randPlayerPos = playerPosition + Vector2(randX, randY)
 	var angle
 	if distance < 450:
 		angle = enemyPosition.angle_to_point(playerPosition)
 	else:
 		angle = enemyPosition.angle_to_point(randPlayerPos)
 
-	
 	# limit angle based on player's facing direction
 	# prevent shooting behind player
 	bullet.set_rotation(angle)
 	if isFacingRight:
-		bullet.set_global_position(get_global_position() + Vector2(30,10))
+		bullet.set_global_position(get_global_position() + Vector2(30, 10))
 	else:
-		bullet.set_global_position(get_global_position() + Vector2(-50,10))
-
+		bullet.set_global_position(get_global_position() + Vector2(-50, 10))
 
 	Globals.Root.add_child(bullet)
 
 
-func testing():
-	print("hello")
-	
 func _on_timer_timeout():
 	if isCloseToPlayer:
 		handleFireWeapon()
