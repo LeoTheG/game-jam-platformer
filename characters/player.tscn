@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://3fgc65u1qa4"]
+[gd_scene load_steps=15 format=3 uid="uid://3fgc65u1qa4"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_iusnv"]
 [ext_resource type="Texture2D" uid="uid://bwi3b6j0ii83t" path="res://sprites/player.png" id="2_0x27y"]
@@ -8,9 +8,9 @@
 atlas = ExtResource("2_0x27y")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ouy7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyb7a"]
 atlas = ExtResource("2_0x27y")
-region = Rect2(384, 0, 128, 128)
+region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oxkw2"]
 animations = [{
@@ -24,7 +24,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0ouy7")
+"texture": SubResource("AtlasTexture_wyb7a")
 }],
 "loop": true,
 "name": &"fire_weapon",
@@ -82,6 +82,23 @@ _data = {
 "activate": SubResource("Animation_jbwxm")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkhox"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rst1g"]
+atlas = ExtResource("2_0x27y")
+region = Rect2(512, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b316n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rst1g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(5, -78)
 script = ExtResource("1_iusnv")
@@ -117,3 +134,15 @@ offset_top = -73.0
 offset_right = 26.0
 offset_bottom = -63.0
 color = Color(1, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(11, 54)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xkhox")
+
+[node name="Arm" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 14)
+sprite_frames = SubResource("SpriteFrames_b316n")
+offset = Vector2(32, 0)
