@@ -1,11 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://co0x8fksr17aj"]
+[gd_scene load_steps=4 format=3 uid="uid://co0x8fksr17aj"]
 
 [ext_resource type="Script" path="res://dangerousObject.gd" id="1_kgf5o"]
-[ext_resource type="Texture2D" uid="uid://csqk0o0lqanh1" path="res://sprites/objects.png" id="2_to1li"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y5jk0"]
-atlas = ExtResource("2_to1li")
-region = Rect2(0, 0, 128, 128)
+[ext_resource type="Texture2D" uid="uid://csqk0o0lqanh1" path="res://sprites/objects.png" id="2_rra0n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ml1ku"]
 size = Vector2(72, 11)
@@ -16,7 +12,7 @@ script = ExtResource("1_kgf5o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(288, -64)
-texture = SubResource("AtlasTexture_y5jk0")
+texture = ExtResource("2_rra0n")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
 

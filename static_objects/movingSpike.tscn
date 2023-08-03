@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqe0tl8osfvfg"]
+
+[ext_resource type="Script" path="res://MovingObj.gd" id="1_61dgq"]
+[ext_resource type="Texture2D" uid="uid://coo3snud05w5q" path="res://sprites/Spike.png" id="2_5f6m3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2a6g"]
+size = Vector2(122, 12)
+
+[sub_resource type="Animation" id="Animation_2gshk"]
+resource_name = "move"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(17, 214), Vector2(17, 150), Vector2(17, 214)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o2sh3"]
+_data = {
+"move": SubResource("Animation_2gshk")
+}
+
+[node name="MovingSpike" type="Node2D"]
+z_index = -2
+position = Vector2(-7, -191)
+script = ExtResource("1_61dgq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(17, 209.369)
+texture = ExtResource("2_5f6m3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/StaticBody2D"]
+position = Vector2(0, 1)
+polygon = PackedVector2Array(-5, -45, 13, 30, 17, 20, 20, 20, 23, 36, 29, 28, 43, 53, 48, 43, 62, 62, -62, 64, -53, 53, -51, 60, -42, 46, -38, 57)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+position = Vector2(-1, 59)
+shape = SubResource("RectangleShape2D_d2a6g")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+position = Vector2(-391, 67)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D"]
+polygon = PackedVector2Array(348, -22, 353, -10, 384, -112, 404, -36, 408, -47, 411, -45, 413, -31, 419, -40, 433, -14, 440, -23, 452, -5, 329, -3, 337, -13, 340, -8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o2sh3")
+}
