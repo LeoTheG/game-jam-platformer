@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfmfcca0b87gg"]
+[gd_scene load_steps=6 format=3 uid="uid://bfmfcca0b87gg"]
 
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
 [ext_resource type="PackedScene" uid="uid://co0x8fksr17aj" path="res://static_objects/spike.tscn" id="3_h8trb"]
-[ext_resource type="PackedScene" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
+[ext_resource type="PackedScene" uid="uid://dqe0tl8osfvfg" path="res://static_objects/movingSpike.tscn" id="4_f3umd"]
+[ext_resource type="PackedScene" uid="uid://cmw0lx567chv2" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
 
 [node name="Game" type="Node2D"]
 
@@ -12,6 +13,8 @@
 [node name="TileMap" parent="." instance=ExtResource("1_ecfde")]
 
 [node name="Spike" parent="TileMap" instance=ExtResource("3_h8trb")]
+
+[node name="MovingSpike" parent="TileMap" instance=ExtResource("4_f3umd")]
 
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 visible = false
