@@ -10,6 +10,8 @@ var Bullet = load("res://projectiles/bullet.tscn")
 @onready var effectsAnimationPlayer = $EffectsAnimationPlayer
 @onready var invincibilityTimer = $InvincibilityTimer
 @onready var healthBar = $HealthBarColorRect
+@onready var area2D = $Area2D
+@onready var arm = $Arm
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -650.0
@@ -17,7 +19,7 @@ const HEALTH_BAR_MAX_WIDTH_PX = 40
 const BULLET_POSITION_RIGHT = Vector2(63, -1)
 const BULLET_POSITION_LEFT = Vector2(-65, -1)
 const MAX_NUM_TIMES_JUMPED_IN_AIR = 1
-const WEAPON_COOLDOWN_SECONDS = 0.05
+const WEAPON_COOLDOWN_SECONDS = 0.5
 const MAX_HEALTH = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -35,6 +37,21 @@ func _ready():
 	add_child(actionRestTimer)
 
 	invincibilityTimer.connect("timeout", _on_invincibilityTimer_timeout)
+	area2D.connect("body_entered", _on_area2D_body_entered)
+
+	# connect to mouse movement signal
+
+
+const TILE_ATLAS_COORDS_OUT_OF_BOUNDS = Vector2i(2, 0)
+
+
+func _on_area2D_body_entered(body):
+	if body is TileMap:
+		var cellPosition = body.local_to_map(area2D.get_global_position() + Vector2(0, 0))
+		var cellAtlasCoords = body.get_cell_atlas_coords(0, cellPosition)
+
+		if cellAtlasCoords == TILE_ATLAS_COORDS_OUT_OF_BOUNDS:
+			player_died.emit()
 
 
 func _on_invincibilityTimer_timeout():
@@ -67,9 +84,11 @@ func _physics_process(delta):
 	if velocity.x > 0:
 		facingDirection = "right"
 		animatedSprite2D.set_flip_h(false)
+		arm.set_flip_v(false)
 	elif velocity.x < 0:
 		facingDirection = "left"
 		animatedSprite2D.set_flip_h(true)
+		arm.set_flip_v(true)
 
 	if direction:
 		velocity.x = direction * SPEED
@@ -87,6 +106,14 @@ func _input(_event):
 
 
 func _process(_delta):
+	var mouse_position = get_global_mouse_position()
+
+	# angle from player to mouse
+	var angle = get_global_position().angle_to_point(mouse_position)
+
+	# rotate arm
+	arm.set_rotation(angle)
+
 	if isHoldingMouseDown:
 		if actionRestTimer.time_left == 0:
 			handleFireWeapon()
@@ -99,7 +126,7 @@ func handleFireWeapon():
 
 func spawnBullet():
 	var bullet = Bullet.instantiate()
-	bullet.isFiredByPlayer = true 
+	bullet.isFiredByPlayer = true
 
 	# angle bullet based on mouse position relative to player position
 	var mousePosition = get_global_mouse_position()
@@ -144,11 +171,6 @@ func damage(amount):
 
 	if health <= 0:
 		player_died.emit()
-
-		# restart player position, hp, etc
-		set_position(Vector2(5, -78))
-		animatedSprite2D.set_flip_h(false)
-		health = MAX_HEALTH
 		return
 
 	healthBar.set_size(Vector2(HEALTH_BAR_MAX_WIDTH_PX * health / 100, 10))

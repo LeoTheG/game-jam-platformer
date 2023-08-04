@@ -12,9 +12,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var isCloseToPlayer = false
 var isFacingRight = true
 
+const INITIAL_POSITION = Vector2(710, -9)
+
 
 func _ready():
 	$Timer.connect("timeout", _on_timer_timeout)
+	set_position(INITIAL_POSITION)
 
 
 func _physics_process(delta):
