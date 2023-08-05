@@ -1,15 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu6ofteu00vjb"]
+[gd_scene load_steps=5 format=3 uid="uid://bu6ofteu00vjb"]
 
 [ext_resource type="Script" path="res://static_objects/Pendulum.gd" id="1_am2dn"]
 [ext_resource type="Texture2D" uid="uid://dr3fdoaod1dvm" path="res://sprites/Pendulum.png" id="2_16oww"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ju2no"]
-radius = 25.0
-height = 50.0
-
 [sub_resource type="Animation" id="Animation_kq8si"]
 resource_name = "Swing"
-length = 3.0
+length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -18,10 +14,10 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.5708, 0.0, 1.5708]
+"values": [0.0, -1.5708, 0.0, 1.5708, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j7hb7"]
@@ -30,34 +26,26 @@ _data = {
 }
 
 [node name="Pendulum" type="Node2D"]
-visible = false
-rotation = -0.441966
+rotation = -0.31416
+scale = Vector2(3, 3)
 script = ExtResource("1_am2dn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(400, -116)
+position = Vector2(3.89631, -4.56276)
 texture = ExtResource("2_16oww")
+offset = Vector2(-4, 20)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
-visible = false
-position = Vector2(0, 11)
-shape = SubResource("CapsuleShape2D_ju2no")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/StaticBody2D"]
-visible = false
-position = Vector2(2, 25)
+position = Vector2(-1.89631, 45.5628)
 build_mode = 1
 polygon = PackedVector2Array(-28, -9, 24, -9, 1, 12, -6, 12)
 
 [node name="Area2D" type="Area2D" parent="Sprite2D"]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D"]
-visible = false
+position = Vector2(-4.28332, 23.0128)
 polygon = PackedVector2Array(-26, 16, 25, 16, 3, 37, -4, 37)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

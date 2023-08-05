@@ -29,7 +29,7 @@ var actionRestTimer
 var numTimesJumpedInAir = 0
 var isHoldingMouseDown = false
 var health = MAX_HEALTH
-
+var audioFile = preload("res://audio/PlayerShoot.wav")
 
 func _ready():
 	actionRestTimer = Timer.new()
@@ -44,7 +44,12 @@ func _ready():
 
 const TILE_ATLAS_COORDS_OUT_OF_BOUNDS = Vector2i(2, 0)
 
-
+func playAudio():
+	var audioStreamPlayer = AudioStreamPlayer.new()
+	audioStreamPlayer.stream = audioFile
+	add_child(audioStreamPlayer)
+	audioStreamPlayer.play()
+	
 func _on_area2D_body_entered(body):
 	if body is TileMap:
 		var cellPosition = body.local_to_map(area2D.get_global_position() + Vector2(0, 0))
@@ -122,7 +127,7 @@ func _process(_delta):
 func handleFireWeapon():
 	spawnBullet()
 	setActionTimer()
-
+	playAudio()
 
 func spawnBullet():
 	var bullet = Bullet.instantiate()
