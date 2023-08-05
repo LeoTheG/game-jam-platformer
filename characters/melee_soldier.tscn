@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsk4ncg7ppyj2"]
+
+[ext_resource type="Script" path="res://characters/meleeRedSoldier.gd" id="1_yfmlu"]
+[ext_resource type="Texture2D" uid="uid://bvxv4hjch32vi" path="res://sprites/Redsoldier Slashing.png" id="2_n12sm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plafx"]
+atlas = ExtResource("2_n12sm")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0nfy"]
+atlas = ExtResource("2_n12sm")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1uyn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plafx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0nfy")
+}],
+"loop": true,
+"name": &"Slash",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7hpl"]
+size = Vector2(72, 96)
+
+[node name="MeleeSoldier" type="CharacterBody2D"]
+position = Vector2(54, -124)
+script = ExtResource("1_yfmlu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1uyn4")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 16)
+shape = SubResource("RectangleShape2D_k7hpl")
+
+[node name="Timer" type="Timer" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqe0tl8osfvfg"]
 
-[ext_resource type="Script" path="res://MovingObj.gd" id="1_61dgq"]
+[ext_resource type="Script" path="res://static_objects/MovingObj.gd" id="1_j0uuo"]
 [ext_resource type="Texture2D" uid="uid://coo3snud05w5q" path="res://sprites/Spike.png" id="2_5f6m3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2a6g"]
@@ -13,14 +13,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(17, 214), Vector2(17, 150), Vector2(17, 214)]
+"values": [Vector2(-12, -120), Vector2(-12, -200), Vector2(-12, -120)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2sh3"]
@@ -30,11 +30,11 @@ _data = {
 
 [node name="MovingSpike" type="Node2D"]
 z_index = -2
-position = Vector2(-7, -191)
-script = ExtResource("1_61dgq")
+position = Vector2(-12, -154.734)
+script = ExtResource("1_j0uuo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(17, 209.369)
+position = Vector2(17, 158.911)
 texture = ExtResource("2_5f6m3")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
