@@ -21,8 +21,9 @@ func _on_body_entered(body):
 			return
 		player.damage(5)
 		queue_free()
-	elif body.name == "GunSoldier":
+	elif body.name == "GunSoldier" or body.name == "MeleeSoldier":
 		body.queue_free()
+	
 
 
 # note: when this node is spawned, need to set rotation
