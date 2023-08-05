@@ -1,6 +1,5 @@
-
 extends Node2D
-"""
+
 @onready var area2D = $Sprite2D/Area2D
 @onready var player = Globals.Player
 @onready var animationPlayer = $AnimationPlayer
@@ -10,7 +9,7 @@ var point1 = Vector2(0,0)
 var point2 = Vector2(0,0)
 
 func _ready():
-	#animationPlayer.play("move")
+	animationPlayer.play("Swing")
 	var screenSize = get_viewport().get_visible_rect().size
 	area2D.connect("body_entered", _on_body_entered)
 	area2D.connect("body_exited", _on_body_exited)
@@ -30,4 +29,3 @@ func _process(_delta):
 	if isCollidingWithPlayer:
 		player.damage(damageAmount)
 
-"""

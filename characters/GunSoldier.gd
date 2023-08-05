@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var audioFile = preload("res://audio/RedSoldier.wav")
 var Bullet = load("res://projectiles/bullet.tscn")
 var playEveryOtherSecond = false
 var animationPlaying = false
@@ -11,15 +12,20 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var isCloseToPlayer = false
 var isFacingRight = true
-
-const INITIAL_POSITION = Vector2(710, -9)
+var health = 10
+const INITIAL_POSITION = Vector2(110, -9)
 
 
 func _ready():
 	$Timer.connect("timeout", _on_timer_timeout)
 	set_position(INITIAL_POSITION)
 
-
+func playAudio():
+	var audioStreamPlayer = AudioStreamPlayer.new()
+	audioStreamPlayer.stream = audioFile
+	add_child(audioStreamPlayer)
+	audioStreamPlayer.play()
+	
 func _physics_process(delta):
 	var pos = get_global_position()
 	var playerPos = Globals.Player.get_global_position()
@@ -51,6 +57,7 @@ func _physics_process(delta):
 func handleFireWeapon():
 	spawnBullet()
 	$AnimatedSprite.play("Shooting")
+	playAudio()
 
 
 var distance = 0
@@ -84,3 +91,8 @@ func spawnBullet():
 func _on_timer_timeout():
 	if isCloseToPlayer:
 		handleFireWeapon()
+
+func damage(amount):
+	health -= amount
+	if health <= 0:
+		queue_free()
