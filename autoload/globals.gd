@@ -7,12 +7,21 @@ var gunSoldier = load("res://characters/gun_soldier.tscn")
 @onready var GameOverScreen = Root.get_node("GameOverScreen")
 @onready var ReplayButton = GameOverScreen.get_node("ColorRect/VBoxContainer/Button")
 @onready var GunSoldier = Root.get_node("GunSoldier")
+@onready var Map: TileMap = Root.get_node("TileMap")
 
 
 func _ready():
 	GameOverScreen.hide()
 	Player.connect("player_died", _on_Player_player_died)
 	ReplayButton.connect("pressed", _on_ReplayButton_pressed)
+
+	var outOfBoundTilePositions = Map.get_used_cells_by_id(0, 1, Vector2i(2, 0))
+
+	for position in outOfBoundTilePositions:
+		# modulate alpha to 0
+		# Map.set_cell(0, position, 1, Vector2i(2, 0))
+		# Map.set_cell(0, position, -1)
+		pass
 
 
 func _on_Player_player_died():
