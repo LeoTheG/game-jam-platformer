@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfmfcca0b87gg"]
+[gd_scene load_steps=10 format=3 uid="uid://bfmfcca0b87gg"]
 
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
 [ext_resource type="PackedScene" uid="uid://co0x8fksr17aj" path="res://static_objects/spike.tscn" id="3_h8trb"]
-[ext_resource type="PackedScene" uid="uid://dqe0tl8osfvfg" path="res://static_objects/movingSpike.tscn" id="4_f3umd"]
-[ext_resource type="PackedScene" uid="uid://cmw0lx567chv2" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
-[ext_resource type="PackedScene" uid="uid://bu6ofteu00vjb" path="res://static_objects/pendulum.tscn" id="5_qsajv"]
+[ext_resource type="PackedScene" path="res://static_objects/movingSpike.tscn" id="4_f3umd"]
+[ext_resource type="PackedScene" uid="uid://vi676onkxy6l" path="res://characters/gun_soldier.tscn" id="4_k6bxb"]
+[ext_resource type="PackedScene" path="res://static_objects/pendulum.tscn" id="5_qsajv"]
 [ext_resource type="Texture2D" uid="uid://cblrqifqjoclr" path="res://sprites/biggerBackground.png" id="6_2cauc"]
-[ext_resource type="PackedScene" uid="uid://dsk4ncg7ppyj2" path="res://characters/melee_soldier.tscn" id="8_1fqnm"]
+[ext_resource type="PackedScene" path="res://characters/melee_soldier.tscn" id="8_1fqnm"]
+[ext_resource type="AudioStream" uid="uid://bxnpm7osb16kc" path="res://audio/song-track-1.mp3" id="9_ruw2i"]
 
 [node name="Game" type="Node2D"]
 
@@ -70,3 +71,7 @@ centered = false
 
 [node name="MeleeSoldier" parent="." instance=ExtResource("8_1fqnm")]
 position = Vector2(-241, -65)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ruw2i")
+autoplay = true
