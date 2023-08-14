@@ -11,6 +11,9 @@ var meleeSoldier = load("res://characters/melee_soldier.tscn")
 #@onready var GunSoldier = Root.get_node("GunSoldier")
 #@onready var MeleeSoldier = Root.get_node("MeleeSoldier")
 var initialEnemyPositions = [] 
+@onready var GunSoldier = Root.get_node("GunSoldier")
+@onready var Map: TileMap = Root.get_node("TileMap")
+
 
 func getEnemyPositions():
 	var enemies = Enemies.get_children()
@@ -28,6 +31,15 @@ func _ready():
 	Player.connect("player_died", _on_Player_player_died)
 	ReplayButton.connect("pressed", _on_ReplayButton_pressed)
 	getEnemyPositions()
+
+	var outOfBoundTilePositions = Map.get_used_cells_by_id(0, 1, Vector2i(2, 0))
+
+	for position in outOfBoundTilePositions:
+		# modulate alpha to 0
+		# Map.set_cell(0, position, 1, Vector2i(2, 0))
+		# Map.set_cell(0, position, -1)
+		pass
+
 
 func _on_Player_player_died():
 	GameOverScreen.show()

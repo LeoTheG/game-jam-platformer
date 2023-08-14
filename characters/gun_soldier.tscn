@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmw0lx567chv2"]
+[gd_scene load_steps=7 format=3 uid="uid://vi676onkxy6l"]
 
 [ext_resource type="Script" path="res://characters/GunSoldier.gd" id="1_rdrwl"]
 [ext_resource type="Texture2D" uid="uid://jexyx7jxqdn1" path="res://sprites/GunSoldier.png" id="2_txrhx"]
