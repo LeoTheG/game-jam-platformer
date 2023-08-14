@@ -1,7 +1,8 @@
 extends Node2D
 
 class_name Bullet
-
+var GunSoldier = load("res://characters/gun_soldier.tscn")
+var MeleeSoldier = load("res://characters/melee_soldier.tscn")
 @export var speed = 1500
 @onready var visibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var area2D = $Sprite2D/Area2D
@@ -21,7 +22,7 @@ func _on_body_entered(body):
 			return
 		player.damage(5)
 		queue_free()
-	elif body.name == "GunSoldier" or body.name == "MeleeSoldier":
+	elif body is GunSoldier or body is MeleeSoldier:
 		body.damage(5)
 		queue_free()
 

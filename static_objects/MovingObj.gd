@@ -5,8 +5,6 @@ extends Node2D
 @onready var animationPlayer = $AnimationPlayer
 var isCollidingWithPlayer = false
 var damageAmount = 10
-var point1 = Vector2(0,0)
-var point2 = Vector2(0,0)
 
 func _ready():
 	animationPlayer.play("move")
@@ -28,3 +26,4 @@ func _on_body_exited(body):
 func _process(_delta):
 	if isCollidingWithPlayer:
 		player.damage(damageAmount)
+

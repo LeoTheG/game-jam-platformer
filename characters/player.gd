@@ -20,7 +20,7 @@ const BULLET_POSITION_RIGHT = Vector2(63, -1)
 const BULLET_POSITION_LEFT = Vector2(-65, -1)
 const MAX_NUM_TIMES_JUMPED_IN_AIR = 1
 const WEAPON_COOLDOWN_SECONDS = 0.5
-const MAX_HEALTH = 100
+const MAX_HEALTH = 50
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -168,14 +168,22 @@ func setActionTimer():
 
 
 # called by enemies, dangerous objects, projectiles, etc
+var isAlive = true
 func damage(amount):
+	print("damaged")
+	print(isAlive)
 	if invincibilityTimer.time_left > 0:
+		print("timer")
 		return
 
 	health -= amount
 
 	if health <= 0:
+		if not isAlive:
+			return
+		isAlive = false
 		player_died.emit()
+		#invincibilityTimer.start()
 		return
 
 	healthBar.set_size(Vector2(HEALTH_BAR_MAX_WIDTH_PX * health / 100, 10))
