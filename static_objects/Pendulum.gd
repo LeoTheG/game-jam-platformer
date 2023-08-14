@@ -29,3 +29,4 @@ func _process(_delta):
 	if isCollidingWithPlayer:
 		player.damage(damageAmount)
 
+

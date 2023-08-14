@@ -25,3 +25,4 @@ func _on_body_exited(body):
 func _process(_delta):
 	if isCollidingWithPlayer:
 		player.damage(damageAmount)
+

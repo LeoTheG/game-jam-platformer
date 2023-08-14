@@ -1,25 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsk4ncg7ppyj2"]
+[gd_scene load_steps=9 format=3 uid="uid://dsk4ncg7ppyj2"]
 
 [ext_resource type="Script" path="res://characters/meleeRedSoldier.gd" id="1_yfmlu"]
-[ext_resource type="Texture2D" uid="uid://bvxv4hjch32vi" path="res://sprites/Redsoldier Slashing.png" id="2_n12sm"]
+[ext_resource type="Texture2D" uid="uid://ru0xxxjiyawf" path="res://sprites/Redsoldier Slashing1.png" id="2_sq7sh"]
+[ext_resource type="Texture2D" uid="uid://don5kwn0727bb" path="res://sprites/Redsoldier Slashing2.png" id="3_otarv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_plafx"]
-atlas = ExtResource("2_n12sm")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1scb7"]
+atlas = ExtResource("2_sq7sh")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c0nfy"]
-atlas = ExtResource("2_n12sm")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4rtf"]
-atlas = ExtResource("2_n12sm")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tncbn"]
+atlas = ExtResource("3_otarv")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1uyn4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a712"]
+atlas = ExtResource("2_sq7sh")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlnwa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_plafx")
+"texture": SubResource("AtlasTexture_1scb7")
 }],
 "loop": true,
 "name": &"Idle",
@@ -27,10 +28,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c0nfy")
+"texture": SubResource("AtlasTexture_tncbn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s4rtf")
+"texture": SubResource("AtlasTexture_5a712")
 }],
 "loop": true,
 "name": &"Slash",
@@ -45,7 +46,7 @@ script = ExtResource("1_yfmlu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -64)
-sprite_frames = SubResource("SpriteFrames_1uyn4")
+sprite_frames = SubResource("SpriteFrames_nlnwa")
 animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

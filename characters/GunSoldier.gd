@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
+class_name GunSoldier
 var audioFile = preload("res://audio/RedSoldier.wav")
 var Bullet = load("res://projectiles/bullet.tscn")
 var playEveryOtherSecond = false
 var animationPlaying = false
 
+const enemyName = "GunSoldier"
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -13,12 +15,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var isCloseToPlayer = false
 var isFacingRight = true
 var health = 10
-const INITIAL_POSITION = Vector2(110, -9)
+const INITIAL_POSITION = Vector2(1350, -300)
 
 
 func _ready():
 	$Timer.connect("timeout", _on_timer_timeout)
-	set_position(INITIAL_POSITION)
+	#set_position(INITIAL_POSITION)
 
 func playAudio():
 	var audioStreamPlayer = AudioStreamPlayer.new()
