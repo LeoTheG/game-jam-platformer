@@ -11,7 +11,6 @@ var meleeSoldier = load("res://characters/melee_soldier.tscn")
 #@onready var GunSoldier = Root.get_node("GunSoldier")
 #@onready var MeleeSoldier = Root.get_node("MeleeSoldier")
 var initialEnemyPositions = [] 
-@onready var GunSoldier = Root.get_node("GunSoldier")
 @onready var Map: TileMap = Root.get_node("TileMap")
 
 
