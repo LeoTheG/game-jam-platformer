@@ -9,6 +9,7 @@ var Bullet = load("res://projectiles/bullet.tscn")
 @onready var effectsAnimatedSprite2D = $EffectsAnimatedSprite2D
 @onready var effectsAnimationPlayer = $EffectsAnimationPlayer
 @onready var invincibilityTimer = $InvincibilityTimer
+@onready var healTimer = $HealTimer
 @onready var healthBar = $HealthBarColorRect
 @onready var area2D = $Area2D
 @onready var arm = $Arm
@@ -18,9 +19,9 @@ const JUMP_VELOCITY = -650.0
 const HEALTH_BAR_MAX_WIDTH_PX = 40
 const BULLET_POSITION_RIGHT = Vector2(63, -1)
 const BULLET_POSITION_LEFT = Vector2(-65, -1)
-const MAX_NUM_TIMES_JUMPED_IN_AIR = 1
+
 const WEAPON_COOLDOWN_SECONDS = 0.5
-const MAX_HEALTH = 50
+const MAX_HEALTH = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -30,12 +31,13 @@ var numTimesJumpedInAir = 0
 var isHoldingMouseDown = false
 var health = MAX_HEALTH
 var audioFile = preload("res://audio/PlayerShoot.wav")
+var maxNumTimesJumpedInAir = 0
 
 func _ready():
 	actionRestTimer = Timer.new()
 	actionRestTimer.one_shot = true
 	add_child(actionRestTimer)
-
+	healTimer.connect("timeout", _on_healTimer_timeout)
 	invincibilityTimer.connect("timeout", _on_invincibilityTimer_timeout)
 	area2D.connect("body_entered", _on_area2D_body_entered)
 
@@ -63,6 +65,9 @@ func _on_invincibilityTimer_timeout():
 	animatedSprite2D.set_modulate(Color(1, 1, 1, 1))
 	healthBar.hide()
 
+func _on_healTimer_timeout():
+	animatedSprite2D.set_modulate(Color(1, 1, 1, 1))
+	healthBar.hide()
 
 func _physics_process(delta):
 	if Globals.GameOverScreen.is_visible():
@@ -76,7 +81,7 @@ func _physics_process(delta):
 	# Handle Jump.
 	if (
 		Input.is_action_just_pressed("jump")
-		and (is_on_floor() or numTimesJumpedInAir < MAX_NUM_TIMES_JUMPED_IN_AIR)
+		and (is_on_floor() or numTimesJumpedInAir < maxNumTimesJumpedInAir)
 	):
 		velocity.y = JUMP_VELOCITY
 		if not is_on_floor():
@@ -170,10 +175,7 @@ func setActionTimer():
 # called by enemies, dangerous objects, projectiles, etc
 var isAlive = true
 func damage(amount):
-	print("damaged")
-	print(isAlive)
 	if invincibilityTimer.time_left > 0:
-		print("timer")
 		return
 
 	health -= amount
@@ -191,3 +193,13 @@ func damage(amount):
 
 	invincibilityTimer.start()
 	animatedSprite2D.set_modulate(Color(1, 0, 0, 1))
+
+func heal(amount):
+	if healTimer.time_left > 0:
+		return
+	health += amount
+
+	healthBar.set_size(Vector2(HEALTH_BAR_MAX_WIDTH_PX * health / 100, 10))
+	healthBar.show()
+	healTimer.start()
+	animatedSprite2D.set_modulate(Color(0, .7, 1, 1))

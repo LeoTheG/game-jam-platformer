@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfmfcca0b87gg"]
+[gd_scene load_steps=19 format=3 uid="uid://bfmfcca0b87gg"]
 
 [ext_resource type="PackedScene" uid="uid://cr8jsslnyubbc" path="res://maps/map_jungle.tscn" id="1_ecfde"]
 [ext_resource type="PackedScene" uid="uid://3fgc65u1qa4" path="res://characters/player.tscn" id="2_frwyn"]
@@ -8,8 +8,40 @@
 [ext_resource type="PackedScene" uid="uid://bu6ofteu00vjb" path="res://static_objects/pendulum.tscn" id="5_qsajv"]
 [ext_resource type="Texture2D" uid="uid://cblrqifqjoclr" path="res://sprites/biggerBackground.png" id="6_2cauc"]
 [ext_resource type="PackedScene" uid="uid://dsk4ncg7ppyj2" path="res://characters/melee_soldier.tscn" id="8_1fqnm"]
+[ext_resource type="Script" path="res://static_objects/HealthPack.gd" id="8_235kv"]
+[ext_resource type="Texture2D" uid="uid://br4hfyme7i3cg" path="res://sprites/HealthPack.png" id="8_p7cvr"]
 [ext_resource type="PackedScene" uid="uid://ba2sdbqciuc8n" path="res://static_objects/tree.tscn" id="9_edt4l"]
 [ext_resource type="Texture2D" uid="uid://dtgkrfqi7erlt" path="res://sprites/Tree.png" id="10_rsedx"]
+[ext_resource type="Script" path="res://DoubleJump.gd" id="10_twr8v"]
+[ext_resource type="Texture2D" uid="uid://donh7uja1hlow" path="res://sprites/JumpBoots.png" id="11_kwl5w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4no2"]
+size = Vector2(61.8182, 61.8182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eboc6"]
+size = Vector2(34, 34)
+
+[sub_resource type="Animation" id="Animation_nax7l"]
+resource_name = "Floating"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(498, -54), Vector2(498, -74), Vector2(498, -54)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0m7tx"]
+_data = {
+"Floating": SubResource("Animation_nax7l")
+}
 
 [node name="Game" type="Node2D"]
 
@@ -49,6 +81,64 @@ position = Vector2(1024, -172)
 
 [node name="MeleeSoldier" parent="TileMap/Enemies" instance=ExtResource("8_1fqnm")]
 position = Vector2(1229, -3)
+
+[node name="HealthPack" type="Node2D" parent="TileMap"]
+position = Vector2(-28, 28)
+script = ExtResource("8_235kv")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap/HealthPack"]
+position = Vector2(498, -54)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("8_p7cvr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap/HealthPack/Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/HealthPack/Sprite2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_e4no2")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="TileMap/HealthPack/Sprite2D"]
+position = Vector2(-905.455, 98.1818)
+scale = Vector2(1.81818, 1.81818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/HealthPack/Sprite2D/Area2D"]
+position = Vector2(498, -54)
+shape = SubResource("RectangleShape2D_eboc6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/HealthPack"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_0m7tx")
+}
+
+[node name="DoubleJump" type="Node2D" parent="TileMap"]
+position = Vector2(42, 29)
+script = ExtResource("10_twr8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap/DoubleJump"]
+position = Vector2(498, -54)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("11_kwl5w")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap/DoubleJump/Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoubleJump/Sprite2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_e4no2")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="TileMap/DoubleJump/Sprite2D"]
+position = Vector2(-905.455, 98.1818)
+scale = Vector2(1.81818, 1.81818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoubleJump/Sprite2D/Area2D"]
+position = Vector2(498, -54)
+shape = SubResource("RectangleShape2D_eboc6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/DoubleJump"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_0m7tx")
+}
 
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -93,10 +183,10 @@ centered = false
 
 [node name="Trees" type="Node2D" parent="."]
 
-[node name="BigassTree" type="Node2D" parent="Trees"]
+[node name="BigTree" type="Node2D" parent="Trees"]
 position = Vector2(318, 20)
 
-[node name="Sprite2D" parent="Trees/BigassTree" instance=ExtResource("9_edt4l")]
+[node name="Sprite2D" parent="Trees/BigTree" instance=ExtResource("9_edt4l")]
 position = Vector2(-701, -343)
 scale = Vector2(5, 5)
 texture = ExtResource("10_rsedx")

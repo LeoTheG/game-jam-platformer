@@ -15,7 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var isCloseToPlayer = false
 var isFacingRight = true
 var health = 10
-const INITIAL_POSITION = Vector2(1350, -300)
+#const INITIAL_POSITION = Vector2(1350, -300)
 
 
 func _ready():
