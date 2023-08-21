@@ -146,3 +146,7 @@ shape = SubResource("RectangleShape2D_xkhox")
 position = Vector2(3, 14)
 sprite_frames = SubResource("SpriteFrames_b316n")
 offset = Vector2(32, 0)
+
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

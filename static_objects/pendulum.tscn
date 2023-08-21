@@ -26,7 +26,7 @@ _data = {
 }
 
 [node name="Pendulum" type="Node2D"]
-rotation = -0.31416
+rotation = -1.16693
 scale = Vector2(3, 3)
 script = ExtResource("1_am2dn")
 
