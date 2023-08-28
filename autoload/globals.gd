@@ -13,7 +13,7 @@ var meleeSoldier = load("res://characters/melee_soldier.tscn")
 var initialEnemyPositions = [] 
 @onready var Map: TileMap = Root.get_node("TileMap")
 
-
+var cellProperties = {}
 func getEnemyPositions():
 	var enemies = Enemies.get_children()
 	for enemy in enemies:
